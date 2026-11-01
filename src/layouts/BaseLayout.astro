@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { ui, otherLang, localePath, type Lang, type Page } from '../i18n/ui';
+import { ui, otherLang, localePath, appStoreId, type Lang, type Page } from '../i18n/ui';
 
 interface Props {
 	lang: Lang;
@@ -31,6 +31,7 @@ const footerPages = (['home', 'support', 'privacy'] as const).filter((p) => p !=
 		<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="theme-color" content="#2F2A8C" />
+		{appStoreId && <meta name="apple-itunes-app" content={`app-id=${appStoreId}`} />}
 	</head>
 	<body>
 		<header class="site">
