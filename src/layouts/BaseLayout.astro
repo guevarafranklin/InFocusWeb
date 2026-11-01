@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import { ui, otherLang, localePath, type Lang, type Page } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	page: Page;
+	title: string;
+	description: string;
+}
+
+const { lang, page, title, description } = Astro.props;
+const t = ui[lang];
+const other = otherLang(lang);
+const absolute = (l: Lang) => new URL(localePath(l, page), Astro.site).href;
+// The footer links to the pages you're not on.
+const footerPages = (['home', 'support', 'privacy'] as const).filter((p) => p !== page);
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="alternate" hreflang="en" href={absolute('en')} />
+		<link rel="alternate" hreflang="es" href={absolute('es')} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+		<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#2F2A8C" />
+	</head>
+	<body>
+		<header class="site">
+			<div class="wrap">
+				<a class="brand" href={localePath(lang, 'home')}><span class="brand-mark" aria-hidden="true"></span>InFocus</a>
+				<nav class="site" aria-label={t.navLabel}>
+					<a href={localePath(lang, 'support')} aria-current={page === 'support' ? 'page' : undefined}>{t.support}</a>
+					<a href={localePath(lang, 'privacy')} aria-current={page === 'privacy' ? 'page' : undefined}>{t.privacy}</a>
+					<a href={localePath(other, page)} lang={other} hreflang={other}>{t.switchLabel}</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="wrap">
+			<slot />
+		</main>
+
+		<footer class="site">
+			<div class="wrap">
+				<span>© 2026 Franklin Guevara</span>
+				{footerPages.map((p) => <a href={localePath(lang, p)}>{t[p]}</a>)}
+			</div>
+		</footer>
+	</body>
+</html>

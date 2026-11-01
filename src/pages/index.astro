@@ -1,16 +1,42 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  lang="en"
+  page="home"
+  title="InFocus — Pomodoro & WOD Timer"
+  description="InFocus is a timer for iPhone with two modes: Pomodoro study blocks and AMRAP, EMOM, Tabata and For Time workouts. No account, no ads, no data collected."
+>
+  <section class="hero">
+    <p class="tagline">Focus. Train. Repeat.</p>
+    <h1>One timer for study blocks and hard workouts</h1>
+    <p class="lede">InFocus runs Pomodoro sessions for studying and AMRAP, EMOM, For Time and Tabata timers for the gym, with alarms you can trust while your iPhone is locked.</p>
+    <p class="meta">Coming soon to the App Store for iPhone.</p>
+  </section>
+
+  <div class="modes">
+    <section class="card focus">
+      <h2>Focus</h2>
+      <ul>
+        <li>Pomodoro presets or your own blocks and breaks</li>
+        <li>An intention for each session and a distraction count</li>
+        <li>A daily goal that resets at 4:00</li>
+      </ul>
+    </section>
+    <section class="card train">
+      <h2>Training</h2>
+      <ul>
+        <li>AMRAP, EMOM, For Time, Tabata, Countdown, Stopwatch</li>
+        <li>Combos that chain blocks into a full class</li>
+        <li>A giant landscape display and a voice coach</li>
+      </ul>
+    </section>
+  </div>
+
+  <h2>Reliable with the phone locked</h2>
+  <p>Focus and break endings ring as alarms, even in Silent mode. Workouts keep beeping on time with the screen locked, and the Lock Screen and Dynamic Island show the time left.</p>
+
+  <h2>Nothing collected</h2>
+  <p>No account, no ads, no tracking. Your presets and history stay on your iPhone. Read the <a href="/privacy/">privacy policy</a>.</p>
+</BaseLayout>
