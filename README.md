@@ -24,10 +24,16 @@ npm run build      # writes the site to dist/
 npm run preview    # serves dist/ locally
 ```
 
-## Deploy (Cloudflare Pages, free)
+## Deploy (Cloudflare, free)
 
-**From Git (rebuilds on every push):** Cloudflare dashboard → Workers & Pages → Create →
-Pages → Connect to Git, pick this repo, then set:
+**Workers from Git (rebuilds on every push):** Cloudflare dashboard → Workers & Pages →
+Create → Import a repository, pick this repo, then set build command `npm run build` and
+deploy command `npx wrangler deploy`. `wrangler.jsonc` tells Wrangler to upload `dist/`
+as static assets. Keep that file: without it, `wrangler deploy` tries to convert the
+project to a server-rendered Astro app and the deploy fails.
+
+**Pages from Git:** Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to
+Git, pick this repo, then set:
 
 - Framework preset: Astro
 - Build command: `npm run build`

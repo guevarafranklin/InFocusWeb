@@ -1,0 +1,10 @@
+// Deploys the built static site (dist/) as a Worker with static assets only.
+// Having this file stops `wrangler deploy` from auto-configuring the project,
+// which would add the @astrojs/cloudflare server adapter this site doesn't need.
+{
+	"name": "infocusweb",
+	"compatibility_date": "2026-11-01",
+	"assets": {
+		"directory": "./dist"
+	}
+}
