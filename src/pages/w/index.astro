@@ -1,0 +1,185 @@
+---
+// Shared workout (SPEC 10.5). Plain page, not BaseLayout: it has no Spanish twin URL;
+// the inline script picks the language and reads the workout from the #fragment.
+import '../../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shared workout · InFocus</title>
+  <meta name="description" content="A workout shared with InFocus. Open it on your iPhone with InFocus, or get the app on the App Store.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#2F2A8C">
+  <meta name="apple-itunes-app" content="app-id=6829642604">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>InFocus</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Filled in by the script below from the link's #fragment. The fragment never
+         leaves this browser: nothing about the workout reaches the server. -->
+    <section class="workout" id="workout" hidden>
+      <p class="tagline" id="type"></p>
+      <h1 id="name"></h1>
+      <p class="meta" id="by"></p>
+      <ul id="breakdown"></ul>
+      <p id="notes"></p>
+    </section>
+
+    <section id="invalid" hidden>
+      <h1 data-i18n="invalidTitle">This link isn't an InFocus workout</h1>
+      <p data-i18n="invalidBody">It may have been cut short when it was copied. Ask for the QR code again.</p>
+    </section>
+
+    <div class="notice">
+      <p data-i18n="howTo">Open this link on an iPhone with InFocus to save the workout or start it.</p>
+    </div>
+    <p><a class="button" href="https://apps.apple.com/app/id6829642604" data-i18n="getApp">Get InFocus on the App Store</a></p>
+    <p class="meta" data-i18n="free">Free. No account, no ads, nothing collected.</p>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 Franklin Guevara</span>
+      <a href="/support/" data-i18n="support">Support</a>
+      <a href="/privacy/" data-i18n="privacy">Privacy</a>
+    </div>
+  </footer>
+
+  <script is:inline>
+  // The only script on infocustempo.com: it reads the workout from this page's #fragment,
+  // in this browser. No network requests, no storage, no trackers.
+  (function () {
+    var es = (navigator.language || "").toLowerCase().indexOf("es") === 0;
+    var t = es ? {
+      invalidTitle: "Este enlace no es un entrenamiento de InFocus",
+      invalidBody: "Puede que se haya cortado al copiarlo. Pide el código QR de nuevo.",
+      howTo: "Abre este enlace en un iPhone con InFocus para guardar el entrenamiento o iniciarlo.",
+      getApp: "Descarga InFocus en el App Store",
+      free: "Gratis. Sin cuenta, sin anuncios, sin recopilar datos.",
+      support: "Soporte", privacy: "Privacidad",
+      title: "Entrenamiento compartido · InFocus",
+      by: "por ", rest: "Descanso ", stations: "Estaciones: ", update: "Actualiza InFocus para abrir este entrenamiento.",
+      types: { pomodoro: "Pomodoro", fiftyTwoSeventeen: "52/17", ultradian: "Ultradiano 90", reversePomodoro: "Pomodoro inverso",
+        flowtime: "Flowtime", amrap: "AMRAP", emom: "EMOM", forTime: "For Time", tabata: "Tabata / Intervalos",
+        countdown: "Cuenta regresiva", stopwatch: "Cronómetro", custom: "Combo" },
+      focusLine: function (n, f, b) { return n + " × " + f + " min de enfoque · descanso de " + b + " min"; },
+      pomodoro: function (n, f, s, l) { return n + " × " + f + " min de enfoque · descansos de " + s + " min · descanso largo de " + l + " min"; },
+      reverse: function (n, w, f) { return n + " × " + w + " min de calentamiento → " + f + " min de enfoque"; },
+      flow: function (r) { return "Descanso = enfoque ÷ " + r; },
+      emom: function (i, r) { return "EMOM cada " + i + " × " + r; },
+      emomOpen: function (i) { return "EMOM cada " + i + " hasta el fallo"; },
+      forTime: function (c) { return c ? "For Time, límite " + c : "For Time, sin límite"; },
+      interval: function (w, r, n, s) { return w + " trabajo · " + r + " descanso × " + n + (s > 1 ? ", " + s + " series" : ""); }
+    } : {
+      by: "by ", rest: "Rest ", stations: "Stations: ", update: "Update InFocus to open this workout.",
+      types: { pomodoro: "Pomodoro", fiftyTwoSeventeen: "52/17", ultradian: "Ultradian 90", reversePomodoro: "Reverse Pomodoro",
+        flowtime: "Flowtime", amrap: "AMRAP", emom: "EMOM", forTime: "For Time", tabata: "Tabata / Intervals",
+        countdown: "Countdown", stopwatch: "Stopwatch", custom: "Combo" },
+      focusLine: function (n, f, b) { return n + " × " + f + " min focus · " + b + " min break"; },
+      pomodoro: function (n, f, s, l) { return n + " × " + f + " min focus · " + s + " min breaks · " + l + " min long break"; },
+      reverse: function (n, w, f) { return n + " × " + w + " min warm-up → " + f + " min focus"; },
+      flow: function (r) { return "Break = focus ÷ " + r; },
+      emom: function (i, r) { return "EMOM every " + i + " × " + r; },
+      emomOpen: function (i) { return "EMOM every " + i + " until failure"; },
+      forTime: function (c) { return c ? "For Time, cap " + c : "For Time, no cap"; },
+      interval: function (w, r, n, s) { return w + " work · " + r + " rest × " + n + (s > 1 ? ", " + s + " sets" : ""); }
+    };
+
+    if (es) {
+      document.documentElement.lang = "es";
+      document.title = t.title;
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var text = t[el.getAttribute("data-i18n")];
+        if (text) el.textContent = text;
+      });
+    }
+
+    function clock(s) {
+      var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+      var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+      return h > 0 ? h + ":" + pad(m) + ":" + pad(sec) : m + ":" + pad(sec);
+    }
+
+    function line(inputs) {
+      var type = Object.keys(inputs)[0], v = (inputs[type] || {})._0 || {};
+      switch (type) {
+        case "pomodoro": return t.pomodoro(v.blocksBeforeLongBreak, v.focusMinutes, v.shortBreakMinutes, v.longBreakMinutes);
+        case "fiftyTwoSeventeen":
+        case "ultradian": return t.focusLine(v.cycles, v.focusMinutes, v.breakMinutes);
+        case "reversePomodoro": return t.reverse(v.cycles, v.warmUpMinutes, v.focusMinutes);
+        case "flowtime": return t.flow(v.ratio);
+        case "amrap": return "AMRAP " + clock(v.durationSeconds);
+        case "emom": return v.openEnded ? t.emomOpen(clock(v.intervalSeconds)) : t.emom(clock(v.intervalSeconds), v.rounds);
+        case "forTime": return t.forTime(v.capSeconds ? clock(v.capSeconds) : null);
+        case "tabata": return t.interval(clock(v.workSeconds), clock(v.restSeconds), v.rounds, v.sets);
+        case "countdown": return t.types.countdown + " " + clock(v.durationSeconds);
+        case "stopwatch": return t.types.stopwatch;
+        default: return t.types[type] || type;
+      }
+    }
+
+    function breakdown(inputs) {
+      var type = Object.keys(inputs)[0];
+      if (type === "custom") {
+        var blocks = inputs.custom._0.blocks || [], lines = [];
+        blocks.forEach(function (block, i) {
+          lines.push((i + 1) + ". " + line(block.inputs));
+          if (i < blocks.length - 1 && block.restAfterSeconds > 0) lines.push(t.rest + clock(block.restAfterSeconds));
+        });
+        return lines;
+      }
+      var lines = [line(inputs)];
+      var labels = type === "emom" && inputs.emom._0.stationLabels;
+      if (labels && labels.length) lines.push(t.stations + labels.join(", "));
+      return lines;
+    }
+
+    function show(workout) {
+      document.getElementById("type").textContent = t.types[workout.t] || workout.t;
+      document.getElementById("name").textContent = workout.n || t.types[workout.t];
+      document.getElementById("by").textContent = workout.a ? t.by + workout.a : "";
+      var list = document.getElementById("breakdown");
+      breakdown(workout.i).forEach(function (text) {
+        var item = document.createElement("li");
+        item.textContent = text;
+        list.appendChild(item);
+      });
+      document.getElementById("notes").textContent = workout.o || "";
+      document.getElementById("workout").hidden = false;
+    }
+
+    function invalid(message) {
+      var section = document.getElementById("invalid");
+      if (message) section.querySelector("p").textContent = message;
+      section.hidden = false;
+    }
+
+    var fragment = location.hash.slice(1), dot = fragment.indexOf(".");
+    if (dot < 1) { invalid(); return; }
+    if (parseInt(fragment.slice(0, dot), 10) > 1) { invalid(t.update); return; }
+    try {
+      var base64 = fragment.slice(dot + 1).replace(/-/g, "+").replace(/_/g, "/");
+      while (base64.length % 4) base64 += "=";
+      var bytes = Uint8Array.from(atob(base64), function (c) { return c.charCodeAt(0); });
+      var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+      new Response(stream).text().then(function (json) {
+        var workout = JSON.parse(json);
+        if (!workout || !workout.i || !workout.t) throw new Error("not a workout");
+        show(workout);
+      }).catch(function () { invalid(); });
+    } catch (e) {
+      invalid();
+    }
+  })();
+  </script>
+</body>
+</html>

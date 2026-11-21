@@ -31,10 +31,16 @@ export function localePath(lang: Lang, page: Page): string {
  * the app is live: while empty, the home pages say "coming soon" instead of showing the
  * badge, and Safari's Smart App Banner stays off.
  */
-export const APP_STORE_URL = '';
+export const APP_STORE_URL = 'https://apps.apple.com/app/id6829642604';
 
 /** Numeric App Store ID from APP_STORE_URL, for the Smart App Banner. */
 export const appStoreId = APP_STORE_URL.match(/\/id(\d+)/)?.[1];
+
+/**
+ * Set to true once Apple's official badge SVGs are in public/badges/ (see README). Until
+ * then the home pages show a plain "Download on the App Store" link instead.
+ */
+export const HAS_BADGE_ART = false;
 
 /** Apple's official badge artwork per locale; download it, don't redraw it (see README). */
 export const appStoreBadge = {

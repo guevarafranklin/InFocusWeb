@@ -1,7 +1,9 @@
 # infocustempo.com
 
-Astro site for the InFocus App Store listing. It builds to plain static HTML and CSS:
-no client JavaScript, no web fonts, no trackers.
+Astro site for the InFocus App Store listing and shared workouts. It builds to plain
+static HTML and CSS: no web fonts, no trackers. The only client script is inline on `/w`;
+it reads the workout from the link's `#fragment` in the visitor's browser and makes no
+network requests.
 
 | Page | URL | App Store Connect field | Source |
 | --- | --- | --- | --- |
@@ -10,6 +12,22 @@ no client JavaScript, no web fonts, no trackers.
 | Support (en) | https://infocustempo.com/support/ | Support URL, English (U.S.) | `src/pages/support/index.astro` |
 | Privacy (es) | https://infocustempo.com/es/privacy/ | Privacy Policy URL, Spanish (Mexico) | `src/pages/es/privacy/index.astro` |
 | Support (es) | https://infocustempo.com/es/support/ | Support URL, Spanish (Mexico) | `src/pages/es/support/index.astro` |
+| Shared workout | https://infocustempo.com/w#1.… | (opened by QR codes and share links) | `src/pages/w/index.astro` |
+
+## Shared workout links (InFocus 1.1, SPEC 10.5)
+
+- `public/.well-known/apple-app-site-association` lets `https://infocustempo.com/w…`
+  open InFocus directly (Universal Links) for app ID `F46NV4BFQE.com.infocustempo.app`.
+- `public/_headers` serves that file as `application/json`, which Apple requires.
+- `/w` is what a phone without InFocus shows: the workout summary in English or Spanish
+  (from the browser language) and an App Store button. Keep its decoding in step with
+  the app's `SharedWorkout` codec.
+
+After each deploy, check what Apple sees (its CDN can take a few hours to refresh):
+
+```bash
+curl -s https://app-site-association.cdn-apple.com/a/v1/infocustempo.com
+```
 
 The shared `<head>`, header, nav and footer live in `src/layouts/BaseLayout.astro`;
 nav labels and URL helpers are in `src/i18n/ui.ts`. Styles are `src/styles/global.css`,
@@ -47,23 +65,22 @@ Then add `infocustempo.com` under Custom domains, and set up `support@infocustem
 in Cloudflare → Email → Email Routing, forwarding to your inbox. The privacy and support
 pages both point to it.
 
-## App Store badge (launch day)
+## App Store badge
 
-Until the app is live, the home pages say "Coming soon to the App Store". To switch on
-the download badge:
+InFocus is live, so `APP_STORE_URL` is set and the home pages show a plain "Download on
+the App Store" link. To show Apple's badge instead:
 
 1. Download Apple's official "Download on the App Store" badges (black, SVG) from
    https://toolbox.marketingtools.apple.com/en-us/app-store/ in English (US) and
    Spanish (MX). Save them unmodified as `public/badges/app-store-en.svg` and
    `public/badges/app-store-es.svg`.
-2. In `src/i18n/ui.ts`, set `APP_STORE_URL` to `https://apps.apple.com/app/id<Apple ID>`.
-   The Apple ID is under App Store Connect → your app → App Information.
+2. In `src/i18n/ui.ts`, set `HAS_BADGE_ART` to `true`.
 3. Build and deploy. Both home pages show the badge in their language, and Safari on
    iPhone shows the Smart App Banner (`apple-itunes-app` meta tag) on every page.
 
 ## Before each release
 
-- The privacy policy describes InFocus 1.0 (no network, no Health, no camera). Update it
-  and its effective date (both languages) before shipping the Watch app (Apple Health),
-  QR scanning (camera) or Pro live links (network, SPEC 17.5).
-- Release 1.1 adds `public/.well-known/apple-app-site-association` and the `/w` share page.
+- The privacy policy describes InFocus 1.1: camera for Scan QR, photos (add only) for
+  card images, notifications for focus cues and planned blocks, workouts inside share
+  links. Update it and its effective date (both languages) before shipping the Watch app
+  (Apple Health) or Pro live links (network, SPEC 17.5).

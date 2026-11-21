@@ -177,3 +177,18 @@ footer.site a { color: var(--text-muted); }
 /* Apple's badge: keep it at least 40px tall and leave clear space around it. */
 .app-store { display: inline-block; margin: 8px 0; border-radius: 8px; }
 .app-store img { display: block; height: 48px; width: auto; }
+
+/* Shared workout page (/w) */
+.workout { padding: 8px 0 16px; }
+.workout ul { list-style: none; padding: 0; }
+.workout li { padding: 10px 14px; margin-bottom: 8px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; }
+.button {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--indigo);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.button:hover { filter: brightness(1.1); }

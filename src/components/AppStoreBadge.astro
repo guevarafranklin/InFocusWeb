@@ -1,5 +1,5 @@
 ---
-import { APP_STORE_URL, appStoreBadge, type Lang } from '../i18n/ui';
+import { APP_STORE_URL, HAS_BADGE_ART, appStoreBadge, type Lang } from '../i18n/ui';
 
 interface Props {
 	lang: Lang;
@@ -9,10 +9,12 @@ const badge = appStoreBadge[Astro.props.lang];
 ---
 
 {
-	APP_STORE_URL ? (
+	APP_STORE_URL && HAS_BADGE_ART ? (
 		<a class="app-store" href={APP_STORE_URL}>
 			<img src={badge.src} alt={badge.alt} height="48" />
 		</a>
+	) : APP_STORE_URL ? (
+		<p><a class="button" href={APP_STORE_URL}>{badge.alt}</a></p>
 	) : (
 		<p class="meta">{badge.comingSoon}</p>
 	)

@@ -9,10 +9,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   description="InFocus collects no data. No account, no analytics, no ads, no tracking."
 >
   <h1>Privacy Policy</h1>
-  <p class="meta">Effective October 29, 2026 · Applies to InFocus 1.0 for iPhone</p>
+  <p class="meta">Effective November 18, 2026 · Applies to InFocus 1.1 for iPhone</p>
 
   <div class="notice">
-    <p><strong>In short: InFocus collects no data.</strong> There is no account, no analytics, no advertising and no tracking, and the app does not connect to the internet.</p>
+    <p><strong>In short: InFocus collects no data.</strong> There is no account, no analytics, no advertising and no tracking, and the app does not connect to the internet. Shared workouts travel inside the link itself, never through a server.</p>
   </div>
 
   <h2>Who makes InFocus</h2>
@@ -24,7 +24,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <h2>What stays on your iPhone</h2>
   <p>To work, the app keeps the following only on your device:</p>
   <ul>
-    <li>Your presets and favorites</li>
+    <li>Your presets and favorites, including who made a workout someone shared with you</li>
+    <li>Your day plan: the time blocks you add, with their titles and times</li>
     <li>Your session history: start and end times, timer type, rounds, notes and the optional intention you type</li>
     <li>Your settings, such as sounds, voice, haptics and daily goal</li>
     <li>The timer that is currently running, so it can continue after the app is closed</li>
@@ -34,11 +35,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <h2>Permissions the app asks for</h2>
   <ul>
     <li><strong>Alarms</strong>: so the end of a focus block, a break or a workout rings with your iPhone locked or in Silent mode. Alarms are scheduled on your device.</li>
-    <li><strong>Notifications</strong>: only if you decline alarms, to alert you at the same moments.</li>
+    <li><strong>Notifications</strong>: if you decline alarms, to alert you at the same moments; for the quiet cues of some focus techniques (a wrap-up chime, a “Still in flow?” check-in); and when a block you planned is about to start. All are scheduled on your device.</li>
+    <li><strong>Camera</strong>: only when you tap Scan QR, to read a workout QR code. The image is read on your iPhone and is never saved or sent anywhere.</li>
+    <li><strong>Photos (add only)</strong>: only if you save a workout card image to your photo library. The app cannot see your photos.</li>
     <li><strong>Live Activities</strong>: to show the running timer on the Lock Screen and in the Dynamic Island.</li>
     <li><strong>Siri and Shortcuts</strong>: if you use them, Apple processes your voice request; the app only receives which timer to start.</li>
   </ul>
-  <p>The app does not use your location, contacts, photos, camera, microphone or health data.</p>
+  <p>The app does not use your location, contacts, microphone or health data, and it never reads your photos.</p>
+
+  <h2>Sharing workouts</h2>
+  <p>When you share a workout as a QR code or a link, the whole workout (its name, timer settings and any “Created by” and notes you add) is written inside the link itself, after the <code>#</code>. Browsers never send that part of a link to a server, so the workout does not reach me or anyone else unless you share the link with them. The page at infocustempo.com/w only reads the workout in the visitor’s own browser to show a summary.</p>
 
   <h2>Exporting your history</h2>
   <p>If you choose Settings → Export history, the app creates a CSV file and hands it to the iOS share sheet. Where it goes next is up to you.</p>

@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["F46NV4BFQE.com.infocustempo.app"],
+        "components": [
+          { "/": "/w", "comment": "Shared workout; the workout itself is in the #fragment" },
+          { "/": "/w/", "comment": "Same, with a trailing slash" }
+        ]
+      }
+    ]
+  }
+}

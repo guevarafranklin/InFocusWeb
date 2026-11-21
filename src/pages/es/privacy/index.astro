@@ -9,10 +9,10 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   description="InFocus no recopila datos. Sin cuenta, sin analítica, sin anuncios, sin rastreo."
 >
   <h1>Aviso de privacidad</h1>
-  <p class="meta">Vigente desde el 29 de octubre de 2026 · Aplica a InFocus 1.0 para iPhone</p>
+  <p class="meta">Vigente desde el 18 de noviembre de 2026 · Aplica a InFocus 1.1 para iPhone</p>
 
   <div class="notice">
-    <p><strong>En resumen: InFocus no recopila datos.</strong> No hay cuenta, analítica, publicidad ni rastreo, y la app no se conecta a internet.</p>
+    <p><strong>En resumen: InFocus no recopila datos.</strong> No hay cuenta, analítica, publicidad ni rastreo, y la app no se conecta a internet. Los entrenamientos compartidos viajan dentro del propio enlace, nunca por un servidor.</p>
   </div>
 
   <h2>Quién hace InFocus</h2>
@@ -24,7 +24,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   <h2>Qué se queda en tu iPhone</h2>
   <p>Para funcionar, la app guarda lo siguiente solo en tu dispositivo:</p>
   <ul>
-    <li>Tus preajustes y favoritos</li>
+    <li>Tus preajustes y favoritos, incluido quién creó un entrenamiento que alguien compartió contigo</li>
+    <li>Tu plan del día: los bloques de tiempo que agregues, con sus títulos y horas</li>
     <li>Tu historial de sesiones: horas de inicio y fin, tipo de timer, rondas, notas y la intención opcional que escribas</li>
     <li>Tus ajustes, como sonidos, voz, vibración y meta diaria</li>
     <li>El timer que está corriendo, para que continúe aunque cierres la app</li>
@@ -34,11 +35,16 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   <h2>Permisos que pide la app</h2>
   <ul>
     <li><strong>Alarmas</strong>: para que el fin de un bloque de enfoque, un descanso o un entrenamiento suene con tu iPhone bloqueado o en modo Silencio. Las alarmas se programan en tu dispositivo.</li>
-    <li><strong>Notificaciones</strong>: solo si rechazas las alarmas, para avisarte en los mismos momentos.</li>
+    <li><strong>Notificaciones</strong>: si rechazas las alarmas, para avisarte en los mismos momentos; para los avisos suaves de algunas técnicas de enfoque (un sonido para ir cerrando, un “¿Sigues en flow?”); y cuando un bloque que planeaste está por empezar. Todas se programan en tu dispositivo.</li>
+    <li><strong>Cámara</strong>: solo cuando tocas Escanear QR, para leer el código QR de un entrenamiento. La imagen se lee en tu iPhone y nunca se guarda ni se envía.</li>
+    <li><strong>Fotos (solo agregar)</strong>: solo si guardas la imagen de una tarjeta de entrenamiento en tu fototeca. La app no puede ver tus fotos.</li>
     <li><strong>Actividades en vivo</strong>: para mostrar el timer en la pantalla de bloqueo y en la Dynamic Island.</li>
     <li><strong>Siri y Atajos</strong>: si los usas, Apple procesa tu solicitud de voz; la app solo recibe qué timer iniciar.</li>
   </ul>
-  <p>La app no usa tu ubicación, contactos, fotos, cámara, micrófono ni datos de salud.</p>
+  <p>La app no usa tu ubicación, contactos, micrófono ni datos de salud, y nunca lee tus fotos.</p>
+
+  <h2>Compartir entrenamientos</h2>
+  <p>Cuando compartes un entrenamiento como código QR o enlace, el entrenamiento completo (su nombre, la configuración del timer y lo que agregues en “Creado por” y notas) va escrito dentro del propio enlace, después del <code>#</code>. Los navegadores nunca envían esa parte de un enlace a un servidor, así que el entrenamiento no me llega a mí ni a nadie más, salvo a quien le compartas el enlace. La página infocustempo.com/w solo lee el entrenamiento en el navegador de quien la visita para mostrar un resumen.</p>
 
   <h2>Exportar tu historial</h2>
   <p>Si eliges Ajustes → Exportar historial, la app crea un archivo CSV y lo entrega a la hoja para compartir de iOS. A dónde lo envías después depende de ti.</p>
